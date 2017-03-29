@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+	<head>
+		#parse('_pagelet/header.html')
+	</head>
+	<body>
+		<p><a href='javascript:;'>登陆</a> | <a href='/3rd?go=foreworld.net'>第三方登陆</a></p>
+		<p>#if($!data.user) $data.user.user_name:$data.user.sex #else 游客 #end</p>
+
+		#parse('_pagelet/js.html')
+<script type='text/javascript'>
+  $(function(){
+  });
+</script>
+
+	</body>
+</html>

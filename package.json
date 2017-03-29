@@ -1,0 +1,32 @@
+{
+  "name": "oauth2",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhennanzhuce/oauth2.git"
+  },
+  "devDependencies": {
+    "gulp-babel": "*",
+    "gulp-clean": "*",
+    "babel-register": "*",
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^2.1.2",
+    "jscoverage": ">=0.0.1",
+    "mocha": ">=0.0.1",
+    "should": ">=0.0.1"
+  },
+  "author": "zhennanzhuce",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhennanzhuce/oauth2/issues"
+  },
+  "homepage": "https://github.com/zhennanzhuce/oauth2#readme"
+}
