@@ -1,5 +1,5 @@
 /*!
- * st-mysql
+ * oauth2
  * Copyright(c) 2017 zhennanzhuce
  * MIT Licensed
  */
