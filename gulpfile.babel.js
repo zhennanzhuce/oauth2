@@ -23,7 +23,7 @@ gulp.task("clean", ['clean1', 'clean2']);
 
 
 
-gulp.task("a", ['a_copy1', 'a_copy2', 'a_copy3'], () => {
+gulp.task("a", ['a_copy1', 'a_copy2', 'a_copy3', 'a_html', 'a_public'], () => {
   return gulp.src(["src/authorize/**/*.js", '!./src/authorize/node_modules/**'])
              .pipe(babel())
              .pipe(uglify({ mangle: { toplevel: true } }))
@@ -45,10 +45,20 @@ gulp.task("a_copy3", () => {
              .pipe(gulp.dest("dist/authorize"));
 });
 
+gulp.task("a_html", () => {
+  return gulp.src("src/authorize/**/*.html")
+             .pipe(gulp.dest("dist/authorize"));
+});
+
+gulp.task("a_public", () => {
+  return gulp.src("src/authorize/public/**")
+             .pipe(gulp.dest("dist/authorize/public"));
+});
 
 
 
-gulp.task("b", ['b_copy1', 'b_copy2', 'b_copy3'], () => {
+
+gulp.task("b", ['b_copy1', 'b_copy2', 'b_copy3', 'b_html', 'b_public'], () => {
   return gulp.src(["src/token/**/*.js", '!./src/token/node_modules/**'])
              .pipe(babel())
              .pipe(uglify({ mangle: { toplevel: true } }))
@@ -68,6 +78,16 @@ gulp.task("b_copy2", () => {
 gulp.task("b_copy3", () => {
   return gulp.src("src/token/README.md")
              .pipe(gulp.dest("dist/token"));
+});
+
+gulp.task("b_html", () => {
+  return gulp.src("src/token/**/*.html")
+             .pipe(gulp.dest("dist/token"));
+});
+
+gulp.task("b_public", () => {
+  return gulp.src("src/token/public/**")
+             .pipe(gulp.dest("dist/token/public"));
 });
 
 
