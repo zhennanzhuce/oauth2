@@ -24,13 +24,34 @@ exports.index = function(req, res, next){
   //   'scope': ''
   // };
 
-  biz.user_app.token(query.code, (err, code, token) => {
-    if(err) return next(err);
-    if(code){
-      return res.send({ error: { code: code } });
-    }
-    res.send(token);
-  });
+  if('password' === query.grant_type){
+    let info = {
+      user_name: req.auth.username,
+      user_pass: req.auth.password
+    };
+
+    return biz.user.login(info, (err, code, user) => {
+      if(err) return next(err);
+      if(code) return res.send({ error: { code: code } });
+
+      biz.user_app.getUserAuth(query.client_id, (err, doc) => {
+        if(err) return next(err);
+        if(!doc) return res.send({ error: { code: 'invalid_client' } });
+        res.send({});
+      });
+    });
+  }
+
+  if('authorization_code' === query.grant_type){
+    return biz.user_app.token(query.code, (err, code, token) => {
+      if(err) return next(err);
+      if(code){
+        return res.send({ error: { code: code } });
+      }
+      res.send(token);
+    });
+  }
+
 };
 
 exports.index_params = function(req, res, next){
@@ -45,12 +66,20 @@ exports.index_params = function(req, res, next){
     return res.send({ error: { code: 'invalid_code' } });
   }
 
-  if('authorization_code' !== utils.isEmpty(query.grant_type)){
-    return res.send({ error: { code: 'invalid_grant_type' } });
-  }
+  // if('authorization_code' !== utils.isEmpty(query.grant_type)){
+  //   return res.send({ error: { code: 'invalid_grant_type' } });
+  // }
 
   if(!utils.isEmpty(query.redirect_uri)){
     return res.send({ error: { code: 'invalid_redirect_uri' } });
+  }
+
+  switch(query.grant_type){
+    case 'authorization_code': return next();
+    case 'password':
+      if(utils.isEmpty(query.client_id)) return next();
+      return res.send({ error: { code: 'invalid_client_id' } });
+    default: return res.send({ error: { code: 'invalid_grant_type' } });
   }
 
   next();
