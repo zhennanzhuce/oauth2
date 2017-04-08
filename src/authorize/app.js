@@ -15,6 +15,8 @@ const express = require('express'),
 const macros = require('./lib/macro'),
       conf = require('./settings');
 
+const biz = require('oauth2.biz');
+
 const app = express();
 
 /* all environments */
@@ -26,6 +28,14 @@ app.set('port', process.env.PORT || 3001)
    .use(express.json())
    .use(express.urlencoded())
    .use(express.methodOverride());
+
+app.use('/token/', express.basicAuth((user, pass, cb) => {
+  biz.user_app.getUserAuth(user, (err, doc) => {
+    if(err) return cb();
+    if(!doc) return cb();
+    cb(null, pass === doc.seckey);
+  });
+}, 'please do it'));
 
 /* production */
 if('production' === app.get('env')){

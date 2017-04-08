@@ -14,11 +14,11 @@ gulp.task("clean1", () => {
   return gulp.src(["./dist/authorize/*", '!./dist/authorize/node_modules']).pipe(clean({ force: true }));
 });
 
-gulp.task("clean2", () => {
-  return gulp.src(["./dist/token/*", '!./dist/token/node_modules']).pipe(clean({ force: true }));
-});
+// gulp.task("clean2", () => {
+//   return gulp.src(["./dist/token/*", '!./dist/token/node_modules']).pipe(clean({ force: true }));
+// });
 
-gulp.task("clean", ['clean1', 'clean2']);
+gulp.task("clean", ['clean1']);
 
 
 
@@ -58,37 +58,37 @@ gulp.task("a_public", () => {
 
 
 
-gulp.task("b", ['b_copy1', 'b_copy2', 'b_copy3', 'b_html', 'b_public'], () => {
-  return gulp.src(["src/token/**/*.js", '!./src/token/node_modules/**'])
-             .pipe(babel())
-             .pipe(uglify({ mangle: { toplevel: true } }))
-             .pipe(gulp.dest("dist/token"));
-});
+// gulp.task("b", ['b_copy1', 'b_copy2', 'b_copy3', 'b_html', 'b_public'], () => {
+//   return gulp.src(["src/token/**/*.js", '!./src/token/node_modules/**'])
+//              .pipe(babel())
+//              .pipe(uglify({ mangle: { toplevel: true } }))
+//              .pipe(gulp.dest("dist/token"));
+// });
 
-gulp.task("b_copy1", () => {
-  return gulp.src("src/token/package.json")
-             .pipe(gulp.dest("dist/token"));
-});
+// gulp.task("b_copy1", () => {
+//   return gulp.src("src/token/package.json")
+//              .pipe(gulp.dest("dist/token"));
+// });
 
-gulp.task("b_copy2", () => {
-  return gulp.src("src/token/LICENSE")
-             .pipe(gulp.dest("dist/token"));
-});
+// gulp.task("b_copy2", () => {
+//   return gulp.src("src/token/LICENSE")
+//              .pipe(gulp.dest("dist/token"));
+// });
 
-gulp.task("b_copy3", () => {
-  return gulp.src("src/token/README.md")
-             .pipe(gulp.dest("dist/token"));
-});
+// gulp.task("b_copy3", () => {
+//   return gulp.src("src/token/README.md")
+//              .pipe(gulp.dest("dist/token"));
+// });
 
-gulp.task("b_html", () => {
-  return gulp.src("src/token/**/*.html")
-             .pipe(gulp.dest("dist/token"));
-});
+// gulp.task("b_html", () => {
+//   return gulp.src("src/token/**/*.html")
+//              .pipe(gulp.dest("dist/token"));
+// });
 
-gulp.task("b_public", () => {
-  return gulp.src("src/token/public/**")
-             .pipe(gulp.dest("dist/token/public"));
-});
+// gulp.task("b_public", () => {
+//   return gulp.src("src/token/public/**")
+//              .pipe(gulp.dest("dist/token/public"));
+// });
 
 
-gulp.task("default", ['a', 'b']);
+gulp.task("default", ['a']);
