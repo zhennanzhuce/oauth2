@@ -34,12 +34,12 @@ module.exports = function(app){
 
     var uri = [];
     uri.push('/oauth/2.0/token');
-    // uri.push('?grant_type=authorization_code');
+    uri.push('?grant_type=authorization_code');
     // uri.push('&redirect_uri='+ encodeURIComponent('http://127.0.0.1:3003/3rd/login'));
     // uri.push('&code='+ query.code);
 
     var data = {
-      grant_type: 'authorization_code',
+      // grant_type: 'authorization_code',
       redirect_uri: 'http://127.0.0.1:3003/3rd/login',
       code: query.code
     };
