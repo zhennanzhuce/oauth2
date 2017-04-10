@@ -18,6 +18,32 @@ const rest = require('speedt-utils').rest;
 module.exports = function(app){
   app.get('/', index.indexUI);
 
+  app.post('/tokenByPw$', (req, res, next) => {
+    var query = req.body;
+
+    var uri = [];
+    uri.push('/oauth/2.0/token');
+    uri.push('?grant_type=password');
+
+    var data = {
+      client_id: '513ae2a0f0d611e68376e3b0bc3e1d71',
+    };
+
+    ajax(http.request, {
+        host: '127.0.0.1',
+        port: 80,
+        path: uri.join(''),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Basic '+ query.auth
+        }
+      }, data, null).then(html => {
+        res.send(html);
+      }).catch(next);
+
+  });
+
   app.get('/3rd$', (req, res, next) => {
     var uri = [];
     uri.push('http://127.0.0.1/oauth/2.0/authorize');

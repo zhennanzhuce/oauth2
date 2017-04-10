@@ -7,10 +7,41 @@
 		<p><a href='javascript:;'>登陆</a> | <a href='/3rd?go=foreworld.net'>第三方登陆</a></p>
 		<p>#if($!data.user) $data.user.user_name:$data.user.sex #else 游客 #end</p>
 
+		<p></p>
+		<p></p>
+		<p><a href='javascript:pw("huangxin", "123456")'>pw</a></p>
+
+		<textarea id='pw'></textarea>
+
 		#parse('_pagelet/js.html')
 <script type='text/javascript'>
   $(function(){
   });
+
+	var auth = function(user, pass){
+		var safeStr = unescape(encodeURIComponent(user +':'+ pass));
+		var btoaCode = btoa(safeStr);
+		return btoaCode;
+	};
+
+	function pw(user, pass){
+		$.ajax({
+			url: '/tokenByPw',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				auth: auth(user, pass)
+			},
+			success: function(data){
+				console.log(data);
+				$('#pw').text($('#pw').text() +'123\n');
+			},
+			complete: function(xhr, ts){
+				console.log(xhr.status);
+				console.log(xhr.responseText);
+			}
+		});
+	}
 </script>
 
 	</body>

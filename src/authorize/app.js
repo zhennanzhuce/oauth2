@@ -29,11 +29,22 @@ app.set('port', process.env.PORT || 3001)
    .use(express.urlencoded())
    .use(express.methodOverride());
 
-app.use('/token/', express.basicAuth((user, pass, cb) => {
+app.use('/token/auth/', express.basicAuth((user, pass, cb) => {
   biz.user_app.getUserAuth(user, (err, doc) => {
     if(err) return cb();
     if(!doc) return cb();
     cb(null, pass === doc.seckey);
+  });
+}, 'please do it'));
+
+app.use('/token/pw/', express.basicAuth((user, pass, cb) => {
+  biz.user.login({
+    user_name: user,
+    user_pass: pass
+  }, (err, code, user) => {
+    if(err) return cb();
+    if(code) return cb();
+    cb(null, !!user);
   });
 }, 'please do it'));
 
