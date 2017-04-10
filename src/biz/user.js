@@ -60,3 +60,33 @@ exports.login = function(logInfo, cb){
     cb(null, null, doc);
   });
 };
+
+(() => {
+  const seconds = 60 * 60;
+  const numkeys = 5;
+  const sha1 = 'c99e793c2bd5f99f694c322c09ca04c75a25846f';
+
+  /**
+   *
+   *
+   * @param user_id
+   * @param client_id
+   * @return 获取令牌
+   */
+  exports.token = function(user_id, client_id, cb){
+    var access_token = utils.replaceAll(uuid.v4(), '-', '');
+    var refresh_token = utils.replaceAll(uuid.v1(), '-', '');
+
+    redis.evalsha(sha1, numkeys, 'user_id', 'client_id', 'access_token', 'refresh_token', 'seconds', user_id, client_id, access_token, refresh_token, seconds, (err, code) => {
+      if(err) return cb(err);
+      if('OK' !== code) return cb(null, code);
+      cb(null, null, {
+        access_token: access_token,
+        token_type: 'bearer',
+        refresh_token: refresh_token,
+        expires_in: seconds,
+        scope: ''
+      });
+    });
+  };
+})();

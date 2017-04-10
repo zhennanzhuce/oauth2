@@ -16,12 +16,15 @@ const biz = require('oauth2.biz');
 exports.index = function(req, res, next){
   var query = req.body;
 
-  console.log(req._user_id);
-
   biz.user_app.getUserAuth(query.client_id, (err, doc) => {
     if(err) return next(err);
     if(!doc) return res.send({ error: { code: 'invalid_client' } });
-    res.send(doc);
+
+    biz.user.token(req._user_id, query.client_id, (err, code, token) => {
+      if(err) return next(err);
+      if(code) return res.send({ error: { code: code } });
+      res.send(token);
+    });
   });
 
 };
