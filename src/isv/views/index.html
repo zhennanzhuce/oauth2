@@ -8,8 +8,9 @@
 		<p>#if($!data.user) $data.user.user_name:$data.user.sex #else 游客 #end</p>
 
 		<p></p>
-		<p></p>
-		<p><a href='javascript:pw("huangxin", "123456")'>pw</a></p>
+		<p>user:<input id='user' type='text' value='wuyu' /></p>
+		<p>pass:<input id='pass' type='text' value='123456' /></p>
+		<p><a href='javascript:pw()'>test</a></p>
 
 		<textarea id='pw'></textarea>
 
@@ -24,21 +25,23 @@
 		return btoaCode;
 	};
 
-	function pw(user, pass){
+	function pw(){
 		$.ajax({
 			url: '/tokenByPw',
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
-				auth: auth(user, pass)
+				auth: auth($('#user').val(), $('#pass').val())
 			},
 			success: function(data){
-				console.log(data);
-				$('#pw').text($('#pw').text() +'123\n');
+				$('#pw').text($('#pw').text() + JSON.stringify(data) +'\n');
 			},
 			complete: function(xhr, ts){
 				console.log(xhr.status);
 				console.log(xhr.responseText);
+			},
+			error: function(err){
+				$('#pw').text($('#pw').text() + err.responseText +'\n');
 			}
 		});
 	}
