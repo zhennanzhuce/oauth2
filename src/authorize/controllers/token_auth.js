@@ -46,13 +46,13 @@ exports.index_params = function(req, res, next){
     return res.send({ error: { code: 'invalid_redirect_uri' } });
   }
 
-  let query = URL.parse(req.url, true).query;
+  // let query = URL.parse(req.url, true).query;
 
-  switch(query.grant_type){
-    case 'authorization_code': return next();
-    case 'password':
-    default: return res.send({ error: { code: 'invalid_grant_type' } });
-  }
+  // switch(query.grant_type){
+  //   case 'authorization_code': return next();
+  //   case 'password':
+  //   default: return res.send({ error: { code: 'invalid_grant_type' } });
+  // }
 
   next();
 };
