@@ -6,10 +6,13 @@
 'use strict';
 
 const EventProxy = require('eventproxy');
+const uuid = require('node-uuid');
 
 const md5 = require('speedt-utils').md5;
+const utils = require('speedt-utils').utils;
 
 const mysql = require('./foreworld/mysql');
+const redis = require('./oauth2/redis');
 
 (() => {
   var sql = 'SELECT a.* FROM s_user a WHERE a.user_name=?';
@@ -64,7 +67,7 @@ exports.login = function(logInfo, cb){
 (() => {
   const seconds = 60 * 60;
   const numkeys = 5;
-  const sha1 = 'c99e793c2bd5f99f694c322c09ca04c75a25846f';
+  const sha1 = 'ffc738e750e08d1d4cad5e967030b1b1df465910';
 
   /**
    *
