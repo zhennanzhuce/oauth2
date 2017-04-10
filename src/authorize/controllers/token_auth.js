@@ -6,6 +6,7 @@
 'use strict';
 
 const URL = require('url');
+const basicAuth = require('basic-auth');
 
 const conf = require('../settings');
 const utils = require('speedt-utils').utils;
@@ -54,5 +55,9 @@ exports.index_params = function(req, res, next){
   //   default: return res.send({ error: { code: 'invalid_grant_type' } });
   // }
 
+  next();
+};
+
+exports.auth = function(req, res, next){
   next();
 };

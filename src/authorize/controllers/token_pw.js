@@ -6,6 +6,7 @@
 'use strict';
 
 const URL = require('url');
+const basicAuth = require('basic-auth');
 
 const conf = require('../settings');
 const utils = require('speedt-utils').utils;
@@ -14,6 +15,8 @@ const biz = require('oauth2.biz');
 
 exports.index = function(req, res, next){
   var query = req.body;
+
+  console.log(req._user_id);
 
   biz.user_app.getUserAuth(query.client_id, (err, doc) => {
     if(err) return next(err);
@@ -35,4 +38,20 @@ exports.index_params = function(req, res, next){
   }
 
   next();
+};
+
+exports.auth = function(req, res, next){
+  var user = basicAuth(req);
+
+  if(!user) return res.send({ error: { code: 'invalid_user' } });
+
+  biz.user.login({
+    user_name: user.name,
+    user_pass: user.pass
+  }, (err, code, user) => {
+    if(err) return next(err);
+    if(code) return res.send({ error: { code: code } });
+    req._user_id = user.id;
+    next();
+  });
 };

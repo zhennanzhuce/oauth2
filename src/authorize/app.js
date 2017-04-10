@@ -37,17 +37,6 @@ app.use('/token/auth/', express.basicAuth((user, pass, cb) => {
   });
 }, 'please do it'));
 
-app.use('/token/pw/', express.basicAuth((user, pass, cb) => {
-  biz.user.login({
-    user_name: user,
-    user_pass: pass
-  }, (err, code, user) => {
-    if(err) return cb();
-    if(code) return cb();
-    cb(null, !!user);
-  });
-}, 'please do it'));
-
 /* production */
 if('production' === app.get('env')){
   app.use('/public', express.static(path.join(__dirname, 'public'), { maxAge: 101000 }))

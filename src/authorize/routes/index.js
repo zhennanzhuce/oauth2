@@ -13,6 +13,6 @@ const token_auth = require('../controllers/token_auth');
 module.exports = function(app){
   app.post('/', authorize.index_params, authorize.index);
   app.get('/', login.indexUI_params, login.indexUI);
-  app.post('/token/auth/', token_auth.index_params, token_auth.index);
-  app.post('/token/pw/', token_pw.index_params, token_pw.index);
+  app.post('/token/auth/', token_auth.index_params, token_auth.auth, token_auth.index);
+  app.post('/token/pw/', token_pw.index_params, token_pw.auth, token_pw.index);
 };
