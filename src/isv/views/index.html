@@ -14,6 +14,14 @@
 
 		<textarea id='pw'></textarea>
 
+
+		<p></p>
+		<p>appkey:<input id='appkey' type='text' value='513ae2a0f0d611e68376e3b0bc3e1d71' /></p>
+		<p>method:<input id='method' type='text' value='cme.user.get' /></p>
+		<p>session:<input id='session' type='text' value='' /></p>
+		<p><a href='javascript:testMethod()'>方法测试</a></p>
+		<textarea id='method_result'></textarea>
+
 		#parse('_pagelet/js.html')
 <script type='text/javascript'>
   $(function(){
@@ -25,9 +33,32 @@
 		return btoaCode;
 	};
 
+	function testMethod(){
+		$.ajax({
+			url: '/test/testMethod',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				appkey: $('#appkey').val(),
+				method: $('#method').val(),
+				session: $('#session').val(),
+			},
+			success: function(data){
+				$('#method_result').text($('#method_result').text() + JSON.stringify(data) +'\n');
+			},
+			complete: function(xhr, ts){
+				console.log(xhr.status);
+				console.log(xhr.responseText);
+			},
+			error: function(err){
+				$('#method_result').text($('#method_result').text() + err.responseText +'\n');
+			}
+		});
+	}
+
 	function pw(){
 		$.ajax({
-			url: '/tokenByPw',
+			url: '/test/tokenByPw',
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
@@ -45,6 +76,9 @@
 			}
 		});
 	}
+
+
+
 </script>
 
 	</body>

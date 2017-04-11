@@ -18,7 +18,30 @@ const rest = require('speedt-utils').rest;
 module.exports = function(app){
   app.get('/', index.indexUI);
 
-  app.post('/tokenByPw$', (req, res, next) => {
+  app.post('/test/testMethod$', (req, res, next) => {
+    var query = req.body;
+
+    var params = {
+      appkey: query.appkey,
+      method: query.method,
+      session: query.session
+    }
+
+    var sign = rest.genSignature(params, '123456');
+    sign = encodeURIComponent(sign);
+
+    ajax(http.request, {
+      host: '127.0.0.1',
+      port: 80,
+      path: '/api?method='+ query.method +'&appkey='+ query.appkey +'&signature='+ sign +'&session='+ query.session,
+      method: 'GET',
+    }, null, null).then(html => {
+      res.send(html);
+    }).catch(next);
+
+  });
+
+  app.post('/test/tokenByPw$', (req, res, next) => {
     var query = req.body;
 
     var uri = [];
