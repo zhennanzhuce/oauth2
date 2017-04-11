@@ -9,11 +9,11 @@ local _grant_type = var.arg_grant_type;
 _grant_type = util:isEmpty(_grant_type);
 
 if 'authorization_code' == _grant_type then
-  return 'token/token/auth/';
+  return 'auth/';
 end;
 
 if 'password' == _grant_type then
-  return 'token/token/pw/';
+  return 'pw/';
 end;
 
 return nil;

@@ -1,7 +1,7 @@
 
 -- huangxin <3203317@qq.com>
 
-redis.call('SELECT', 4);
+redis.call('SELECT', 3);
 
 local client_id = ARGV[2];
 local user_id = ARGV[1];
