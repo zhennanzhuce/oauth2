@@ -44,9 +44,7 @@ exports.index_params = function(req, res, next){
 };
 
 exports.auth = function(req, res, next){
-  var user = basicAuth(req);
-
-  if(!user) return res.send({ error: { code: 'invalid_user' } });
+  var user = basicAuth(req) || {};
 
   biz.user.login({
     user_name: user.name,
