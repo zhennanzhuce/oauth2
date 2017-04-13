@@ -3,6 +3,13 @@
 local var = ngx.var;
 local util = require 'util';
 
+local _signature = var.arg_signature;
+_signature = util:isEmpty(_signature);
+
+if nil == _signature then
+  return 'pub';
+end;
+
 --[[
 session
 --]]
