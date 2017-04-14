@@ -121,7 +121,7 @@ module.exports = function(app){
 var getUser = function(session, cb){
   var params = {
     appkey: '513ae2a0f0d611e68376e3b0bc3e1d71',
-    method: 'cme.user.get',
+    method: 'fw.user.get',
     session: session
   }
 
@@ -131,7 +131,7 @@ var getUser = function(session, cb){
   ajax(http.request, {
     host: '127.0.0.1',
     port: 80,
-    path: '/api?method=cme.user.get&appkey=513ae2a0f0d611e68376e3b0bc3e1d71&signature='+ sign +'&session='+ session,
+    path: '/api?method=fw.user.get&appkey=513ae2a0f0d611e68376e3b0bc3e1d71&signature='+ sign +'&session='+ session,
     method: 'GET',
   }, null, null).then(html => {
     var jo = JSON.parse(html);
