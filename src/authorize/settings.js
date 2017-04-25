@@ -13,7 +13,7 @@ module.exports = {
     secret: 'authorize'
   },
   html: {
-    cdn: 'http://127.0.0.1/'
+    cdn: 'http://www.foreworld.net/'
   },
   oauth2: {
     mysql: {

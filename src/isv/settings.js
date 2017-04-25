@@ -13,7 +13,7 @@ module.exports = {
     secret: 'isv'
   },
   html: {
-    cdn: 'http://127.0.0.1/'
+    cdn: 'http://www.foreworld.net/'
   },
   mysql: {
     database: 'isv',
