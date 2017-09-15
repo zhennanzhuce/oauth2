@@ -18,13 +18,13 @@ module.exports = {
   mysql: {
     database: 'isv',
     host: '127.0.0.1',
-    port: 22306,
+    port: 12306,
     user: 'root',
     password: 'password',
     connectionLimit: 50
   },
   redis: {
-    port: 22379,
+    port: 12379,
     host: '127.0.0.1',
     password: '123456'
   }
