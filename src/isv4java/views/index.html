@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+	<head>
+		#parse('_pagelet/header.html')
+	</head>
+	<body>
+		<p><a href='javascript:;'>登陆</a> | <a href='/3rd?go=foreworld.net'>第三方登陆</a></p>
+		<p>#if($!data.user) $data.user.user_name:$data.user.sex #else 游客 #end</p>
+
+		<p></p>
+		<p>user:<input id='user' type='text' value='wuyu' /></p>
+		<p>pass:<input id='pass' type='text' value='123456' /></p>
+		<p><a href='javascript:pw()'>test</a></p>
+
+		<textarea id='pw'></textarea>
+
+
+		<p></p>
+		<p>appkey:<input id='appkey' type='text' value='513ae2a0f0d611e68376e3b0bc3e1d71' /></p>
+		<p>method:<input id='method' type='text' value='fw.user.get' /></p>
+		<p>session:<input id='session' type='text' value='' /></p>
+		<p><a href='javascript:testMethod()'>方法测试</a></p>
+		<textarea id='method_result'></textarea>
+
+		#parse('_pagelet/js.html')
+<script type='text/javascript'>
+  $(function(){
+  });
+
+	var auth = function(user, pass){
+		var safeStr = unescape(encodeURIComponent(user +':'+ pass));
+		var btoaCode = btoa(safeStr);
+		return btoaCode;
+	};
+
+	function testMethod(){
+		$.ajax({
+			url: '/test/testMethod',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				appkey: $('#appkey').val(),
+				method: $('#method').val(),
+				session: $('#session').val(),
+			},
+			success: function(data){
+				$('#method_result').text($('#method_result').text() + JSON.stringify(data) +'\n');
+			},
+			complete: function(xhr, ts){
+				console.log(xhr.status);
+				console.log(xhr.responseText);
+			},
+			error: function(err){
+				$('#method_result').text($('#method_result').text() + err.responseText +'\n');
+			}
+		});
+	}
+
+	function pw(){
+		$.ajax({
+			url: '/test/tokenByPw',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				auth: auth($('#user').val(), $('#pass').val())
+			},
+			success: function(data){
+				$('#pw').text($('#pw').text() + JSON.stringify(data) +'\n');
+			},
+			complete: function(xhr, ts){
+				console.log(xhr.status);
+				console.log(xhr.responseText);
+			},
+			error: function(err){
+				$('#pw').text($('#pw').text() + err.responseText +'\n');
+			}
+		});
+	}
+
+
+
+</script>
+
+	</body>
+</html>
